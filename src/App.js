@@ -2,7 +2,7 @@ import logo from './logo.svg'
 import './App.css'
 
 import * as PIXI from 'pixi.js'
-import { Stage, Container, Sprite, Text } from '@inlet/react-pixi'
+import { Stage, Container, Sprite, Text, Graphics } from '@inlet/react-pixi'
 
 const textStyle = new PIXI.TextStyle({
     align: "center",
@@ -16,6 +16,12 @@ const textStyle = new PIXI.TextStyle({
     // wordWrapWidth: 350
 })
 
+const draw = g => {
+    g.beginFill(0x0033cc, 1)
+    g.drawRect(250, 150, 150, 120)
+    g.endFill()
+}
+
 function App() {
   return (
       <Stage width={800} height={600} options={{ backgroundColor: 0x336699, antialias: true }}>
@@ -25,6 +31,9 @@ function App() {
           {/*<Text text="Hello World" filter={[blurFilter]} />*/}
           <Text text="Hello World" style={textStyle} />
         </Container>
+
+        <Graphics draw={draw}/>
+
       </Stage>
   );
 }
