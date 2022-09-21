@@ -1,6 +1,7 @@
 import './App.css'
+import { useState } from "react"
 import * as PIXI from 'pixi.js'
-import { Stage, Container, Sprite, Text, Graphics, withFilters } from '@inlet/react-pixi'
+import { Stage, Container, Sprite, Text, Graphics, withFilters, useTick } from '@inlet/react-pixi'
 
 import green_tile from "./img/green.png"
 
@@ -30,11 +31,34 @@ const draw = g => {
 
 const Filters = withFilters(Container, { matrix: PIXI.filters.ColorMatrixFilter })
 
+let i = 0
+const Ninja = () => {
+    const [x, setX] = useState(200)
+    const [y, setY] = useState(200)
+
+    useTick(delta => {
+        i += 0.05 * delta;
+        setX(Math.sin(i) * 100 + 200)
+        setY(Math.sin(i/1.5) * 100 + 200)
+    })
+
+    return (
+        <Sprite
+            image={green_tile}
+            x={x} y={y}
+            anchor={0.5}
+            scale={1.5}
+        />
+    )
+}
+
 function App() {
+
+
   return (
       <Stage width={800} height={600} options={stageOptions}>
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
-        <Sprite image={green_tile} x={100} y={100} />
+        <Ninja />
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale() }>
           <Sprite image={green_tile} x={200} y={200} />
