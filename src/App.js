@@ -1,6 +1,6 @@
 import './App.css'
 import * as PIXI from 'pixi.js'
-import { Stage, Container, Sprite, Text, Graphics } from '@inlet/react-pixi'
+import { Stage, Container, Sprite, Text, Graphics, withFilters } from '@inlet/react-pixi'
 
 import green_tile from "./img/green.png"
 
@@ -28,15 +28,21 @@ const draw = g => {
     g.endFill()
 }
 
+const Filters = withFilters(Container, { matrix: PIXI.filters.ColorMatrixFilter })
+
 function App() {
   return (
       <Stage width={800} height={600} options={stageOptions}>
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
         <Sprite image={green_tile} x={100} y={100} />
 
+        <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale() }>
+          <Sprite image={green_tile} x={200} y={200} />
+        </Filters>
+
         <Container x={8} y={8}>
           {/*<Text text="Hello World" filter={[blurFilter]} />*/}
-          <Text text="Hello World" style={textStyle} />
+          <Text text="Hello PIXI" style={textStyle} />
         </Container>
 
         <Graphics draw={draw}/>
