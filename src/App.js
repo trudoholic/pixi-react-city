@@ -1,8 +1,9 @@
 import './App.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as PIXI from 'pixi.js'
-import { Stage, Container, Sprite, Text, Graphics, withFilters, useTick } from '@inlet/react-pixi'
+import { Stage, Container, Graphics, Sprite, Text, useApp, useTick, withFilters } from '@inlet/react-pixi'
 
+import Keyboard from "./components/Keyboard"
 import green_tile from "./img/green.png"
 
 const stageOptions = {
@@ -53,11 +54,12 @@ const Ninja = () => {
 }
 
 function App() {
+  // const app = useApp()
 
-  const onUp = e => {
-    // const sprite = e.currentTarget
-    console.log('#')
-  }
+  // const onUp = e => {
+  //   const sprite = e.currentTarget
+  //   console.log('#')
+  // }
 
   return (
       <Stage
@@ -65,6 +67,7 @@ function App() {
           options={stageOptions}
           // onPointerUp={() => console.log('!')}
       >
+        <Keyboard />
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
         <Ninja />
 
