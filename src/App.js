@@ -54,14 +54,30 @@ const Ninja = () => {
 
 function App() {
 
+  const onUp = e => {
+    // const sprite = e.currentTarget
+    console.log('#')
+  }
 
   return (
-      <Stage width={800} height={600} options={stageOptions}>
+      <Stage
+          width={800} height={600}
+          options={stageOptions}
+          // onPointerUp={() => console.log('!')}
+      >
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
         <Ninja />
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
-          <Sprite image={green_tile} x={200} y={200} />
+          <Sprite
+              image={green_tile} x={200} y={200}
+              interactive={true}
+              // pointerup={onUp}
+              click={e => {
+                  const pos = e.data.global
+                  console.log('click:', pos.x, pos.y)
+              }}
+          />
         </Filters>
 
         <Container x={8} y={8}>
