@@ -4,6 +4,12 @@ import { Stage, Container, Sprite, Text, Graphics } from '@inlet/react-pixi'
 
 import green_tile from "./img/green.png"
 
+const stageOptions = {
+    antialias: true,
+    // backgroundAlpha: 0,
+    backgroundColor: 0x336699,
+}
+
 const textStyle = new PIXI.TextStyle({
     align: "center",
     fontWeight: "bold",
@@ -24,7 +30,7 @@ const draw = g => {
 
 function App() {
   return (
-      <Stage width={800} height={600} options={{ backgroundColor: 0x336699, antialias: true }}>
+      <Stage width={800} height={600} options={stageOptions}>
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
         <Sprite image={green_tile} x={100} y={100} />
 
@@ -40,5 +46,3 @@ function App() {
 }
 
 export default App
-
-//{ backgroundAlpha: 0 }
