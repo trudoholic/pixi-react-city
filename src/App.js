@@ -1,7 +1,7 @@
 import './App.css'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import * as PIXI from 'pixi.js'
-import { Stage, Container, Graphics, Sprite, Text, useApp, useTick, withFilters } from '@inlet/react-pixi'
+import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
 
 import Keyboard from "./components/Keyboard"
 import green_tile from "./img/green.png"
@@ -10,6 +10,7 @@ const stageOptions = {
     antialias: true,
     // backgroundAlpha: 0,
     backgroundColor: 0x336699,
+    // resizeTo: window,
 }
 
 const textStyle = new PIXI.TextStyle({
@@ -54,8 +55,6 @@ const Ninja = () => {
 }
 
 function App() {
-  // const app = useApp()
-
   // const onUp = e => {
   //   const sprite = e.currentTarget
   //   console.log('#')
