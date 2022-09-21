@@ -60,7 +60,7 @@ function App() {
         {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
         <Ninja />
 
-        <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale() }>
+        <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
           <Sprite image={green_tile} x={200} y={200} />
         </Filters>
 
