@@ -75,13 +75,19 @@ function App() {
           // onPointerUp={() => console.log('!')}
       >
         <Keyboard />
-        {/*<Sprite image="./assets/green.png" x={100} y={100} />*/}
-        <Ninja />
+
+        <Sprite
+            x={10} y={50}
+            texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
+            tint={0xaddb67}
+            width={32} height={32}
+        />
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
           <Sprite
               image={green_tile} x={200} y={200}
-              interactive={true}
+              interactive
+              buttonMode
               // pointerup={onUp}
               click={e => {
                   const pos = e.data.global
@@ -96,6 +102,8 @@ function App() {
         </Container>
 
         <Graphics draw={draw}/>
+
+        <Ninja />
 
       </Stage>
   );
