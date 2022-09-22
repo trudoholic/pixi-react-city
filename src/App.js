@@ -59,6 +59,31 @@ const Ninja = () => {
     )
 }
 
+// * * *
+const onDragStart = e => {
+    const sprite = e.currentTarget
+    sprite.alpha = 0.5
+    sprite.data = e.data
+    sprite.dragging = true
+}
+
+const onDragEnd = e => {
+    const sprite = e.currentTarget
+    sprite.alpha = 1
+    sprite.dragging = false
+    sprite.data = null
+}
+
+const onDragMove = e => {
+    const sprite = e.currentTarget
+    if (sprite.dragging) {
+        const newPosition = sprite.data.getLocalPosition(sprite.parent)
+        sprite.x = newPosition.x
+        sprite.y = newPosition.y
+    }
+}
+// * * *
+
 function App() {
   // const onUp = e => {
   //   const sprite = e.currentTarget
@@ -77,10 +102,18 @@ function App() {
         <Keyboard />
 
         <Sprite
-            x={10} y={50}
+            x={10+16} y={50+16}
             texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
             tint={0xaddb67}
             width={32} height={32}
+
+            anchor={0.5}
+            interactive
+            buttonMode
+            pointerdown={onDragStart}
+            pointerup={onDragEnd}
+            pointerupoutside={onDragEnd}
+            pointermove={onDragMove}
         />
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
