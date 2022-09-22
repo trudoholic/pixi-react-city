@@ -4,13 +4,18 @@ import * as PIXI from 'pixi.js'
 import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
 
 import Keyboard from "./components/Keyboard"
+import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 
+const resolution = Math.min(window.devicePixelRatio, 2)
+
 const stageOptions = {
-    antialias: true,
     // backgroundAlpha: 0,
     backgroundColor: 0x336699,
     // resizeTo: window,
+    autoDensity: true,
+    resolution: resolution || 1,
+    antialias: resolution <= 1,
 }
 
 const textStyle = new PIXI.TextStyle({
@@ -60,9 +65,12 @@ function App() {
   //   console.log('#')
   // }
 
+  const [width, height] = useWindowSize()
+
   return (
       <Stage
-          width={800} height={600}
+          // width={800} height={600}
+          width={width} height={height}
           options={stageOptions}
           // onPointerUp={() => console.log('!')}
       >
