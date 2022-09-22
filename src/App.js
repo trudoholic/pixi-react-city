@@ -2,8 +2,10 @@ import './App.css'
 import { useState } from "react"
 import * as PIXI from 'pixi.js'
 import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
+// import { animated, useSpring } from '@react-spring/web'
 
 import Keyboard from "./components/Keyboard"
+import Box from "./components/Box"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 
@@ -100,6 +102,7 @@ function App() {
           // onPointerUp={() => console.log('!')}
       >
         <Keyboard />
+        <Box x={10+16} y={100+16} width={32} height={32} />
 
         <Sprite
             x={10+16} y={50+16}
