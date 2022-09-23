@@ -2,13 +2,13 @@ import './App.css'
 import { useState } from "react"
 import * as PIXI from 'pixi.js'
 import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
-// import { animated, useSpring } from '@react-spring/web'
 
 import Keyboard from "./components/Keyboard"
 import DragBox from "./components/DragBox"
 import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
+import roboto from "./img/Pacifico.ttf"
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -23,11 +23,14 @@ const stageOptions = {
 
 const textStyle = new PIXI.TextStyle({
     align: "center",
+    // font: './assets/Pacifico.ttf',
+    font: roboto,
+    fontSize: 50, // [26]
     fontWeight: "bold",
     fill: "#fff",
     // fill: ["#26f7a3", "#01d27e"],
     // stroke: "#eef1f5",
-    // strokeThickness: 1,
+    // strokeThickness: 1,fontFamily
     // letterSpacing: 5,
     // wordWrap: false,
     // wordWrapWidth: 350
