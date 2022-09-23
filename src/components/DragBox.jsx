@@ -1,7 +1,6 @@
-import {useSpring} from "@react-spring/web";
+import {useSpring, config} from "@react-spring/web";
 import {Container, Sprite} from "@inlet/react-pixi/animated";
 import * as PIXI from "pixi.js";
-import {useEffect, useState} from "react";
 
 const onDragStart = e => {
     const sprite = e.currentTarget
@@ -21,23 +20,16 @@ const onDragMove = e => {
     const sprite = e.currentTarget
     if (sprite.dragging) {
         const newPosition = sprite.data.getLocalPosition(sprite.parent)
-        sprite.x = newPosition.x
-        sprite.y = newPosition.y
+        // sprite.x = newPosition.x
+        // sprite.y = newPosition.y
 
-        // return  newPosition
+        return  newPosition
     }
-    // return null
+    return null
 }
 
 const DragBox = props => {
-    // const [pos, setPos] = useState({x: props.x, y: props.y})
-
-    // const [pos, setPos] = useState({x: 0, y: 0, b: false})
-    // useEffect(() => setPos({x: props.x, y: props.y, b: false}), [])
-    //
-    // const [{xxx, yyy}, api] = useSpring(() => ({xxx: props.x, yyy: props.x}))
-    // useEffect(() => api.start({xxx: props.x, yyy: props.y}), [])
-
+    const [{x, y}, api] = useSpring(() => ({x: props.x, y: props.y, config: config.stiff}))
     return (
         <Container>
             <Sprite
@@ -49,20 +41,15 @@ const DragBox = props => {
                 pointerdown={onDragStart}
                 pointerup={onDragEnd}
                 pointerupoutside={onDragEnd}
-                pointermove={onDragMove}
+                // pointermove={onDragMove}
 
-                // pointermove={e => {
-                //     const newPosition = onDragMove(e)
-                //     if (newPosition && newPosition.x && newPosition.y) {
-                //         api.start({xxx: newPosition.x, yyy: newPosition.y})
-                //         setPos({x: xxx, y: yyy, b: true})
-                //     }
-                // }}
+                pointermove={e => {
+                    const newPos = onDragMove(e)
+                    if (newPos) api.start({x: newPos.x, y: newPos.y})
+                }}
 
                 {...props}
-                // {...pos}
-                // x={pos.b ? pos.x : props.x}
-                // y={pos.b ? pos.y : props.y}
+                {...{x, y}}
             />
         </Container>
     )

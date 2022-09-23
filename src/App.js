@@ -71,6 +71,7 @@ function App() {
   const [winWidth, winHeight] = useWindowSize()
 
   return (
+      (winWidth && winHeight) &&
       <Stage
           // width={800} height={600}
           width={winWidth} height={winHeight}
