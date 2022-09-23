@@ -63,10 +63,6 @@ const Ninja = () => {
 }
 
 function App() {
-  // const onUp = e => {
-  //   const sprite = e.currentTarget
-  //   console.log('#')
-  // }
 
   const [winWidth, winHeight] = useWindowSize()
 
@@ -88,7 +84,6 @@ function App() {
               image={green_tile} x={200} y={200}
               interactive
               buttonMode
-              // pointerup={onUp}
               click={e => {
                   const pos = e.data.global
                   console.log('click:', pos.x, pos.y)

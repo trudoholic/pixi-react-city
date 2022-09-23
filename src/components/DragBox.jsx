@@ -1,4 +1,4 @@
-import {useSpring, config} from "@react-spring/web";
+import {useSpring, config, easings} from "@react-spring/web";
 import {Container, Sprite} from "@inlet/react-pixi/animated";
 import * as PIXI from "pixi.js";
 
@@ -29,7 +29,10 @@ const onDragMove = e => {
 }
 
 const DragBox = props => {
-    const [{x, y}, api] = useSpring(() => ({x: props.x, y: props.y, config: config.stiff}))
+    // const [{x, y}, api] = useSpring(() => ({x: props.x, y: props.y, config: config.stiff}))
+    const [{x, y}, api] = useSpring(() => (
+        {x: props.x, y: props.y, config: {duration: 25, easing: easings.easeInOutSine}}
+    ))
     return (
         <Container>
             <Sprite
