@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js'
 import { Container, Sprite } from '@inlet/react-pixi/animated'
 import { animated, useSpring } from '@react-spring/web'
 
-const Box = props => {
+const SpringBox = props => {
     const [spring, api] = useSpring(() => ({
         from: { rotation: 0 }
     }))
@@ -27,4 +27,4 @@ const Box = props => {
     )
 }
 
-export default Box
+export default SpringBox
