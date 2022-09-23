@@ -1,6 +1,6 @@
-import * as PIXI from 'pixi.js'
-import { Container, Sprite } from '@inlet/react-pixi/animated'
-import { animated, useSpring } from '@react-spring/web'
+import {useSpring} from "@react-spring/web";
+import {Container, Sprite} from "@inlet/react-pixi/animated";
+import * as PIXI from "pixi.js";
 
 const SpringBox = props => {
     const [spring, api] = useSpring(() => ({
@@ -13,7 +13,7 @@ const SpringBox = props => {
                 texture={PIXI.Texture.WHITE}
                 tint={0xf44336}
                 anchor={0.5}
-                interactive
+                interactive buttonMode
                 pointerover={() => {
                     api.start({ rotation: 10 * Math.random() - 10 })
                 }}

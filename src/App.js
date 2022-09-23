@@ -5,6 +5,7 @@ import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '
 // import { animated, useSpring } from '@react-spring/web'
 
 import Keyboard from "./components/Keyboard"
+import DragBox from "./components/DragBox"
 import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
@@ -61,31 +62,6 @@ const Ninja = () => {
     )
 }
 
-// * * *
-const onDragStart = e => {
-    const sprite = e.currentTarget
-    sprite.alpha = 0.5
-    sprite.data = e.data
-    sprite.dragging = true
-}
-
-const onDragEnd = e => {
-    const sprite = e.currentTarget
-    sprite.alpha = 1
-    sprite.dragging = false
-    sprite.data = null
-}
-
-const onDragMove = e => {
-    const sprite = e.currentTarget
-    if (sprite.dragging) {
-        const newPosition = sprite.data.getLocalPosition(sprite.parent)
-        sprite.x = newPosition.x
-        sprite.y = newPosition.y
-    }
-}
-// * * *
-
 function App() {
   // const onUp = e => {
   //   const sprite = e.currentTarget
@@ -103,21 +79,7 @@ function App() {
       >
         <Keyboard />
         <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
-
-        <Sprite
-            x={winWidth/2} y={winHeight/2}
-            texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
-            tint={0xaddb67}
-            width={32} height={32}
-
-            anchor={0.5}
-            interactive
-            buttonMode
-            pointerdown={onDragStart}
-            pointerup={onDragEnd}
-            pointerupoutside={onDragEnd}
-            pointermove={onDragMove}
-        />
+        <DragBox x={winWidth/2} y={winHeight/2} width={32} height={32} />
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
           <Sprite
