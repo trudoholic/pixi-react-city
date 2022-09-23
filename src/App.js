@@ -73,10 +73,11 @@ function App() {
   return (
       (winWidth && winHeight) &&
       <Stage
-          // width={800} height={600}
           width={winWidth} height={winHeight}
           options={stageOptions}
-          // onPointerUp={() => console.log('!')}
+          onClick={e => {
+              console.log('click:', e.clientX, e.clientY)
+          }}
       >
         <Keyboard />
         <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
