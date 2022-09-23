@@ -92,12 +92,12 @@ function App() {
   //   console.log('#')
   // }
 
-  const [width, height] = useWindowSize()
+  const [winWidth, winHeight] = useWindowSize()
 
   return (
       <Stage
           // width={800} height={600}
-          width={width} height={height}
+          width={winWidth} height={winHeight}
           options={stageOptions}
           // onPointerUp={() => console.log('!')}
       >
@@ -105,7 +105,7 @@ function App() {
         <Box x={10+16} y={100+16} width={32} height={32} />
 
         <Sprite
-            x={10+16} y={50+16}
+            x={winWidth/2} y={winHeight/2}
             texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
             tint={0xaddb67}
             width={32} height={32}
