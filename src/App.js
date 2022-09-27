@@ -1,14 +1,14 @@
 import './App.css'
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import * as PIXI from 'pixi.js'
 import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
+import FontFaceObserver from "fontfaceobserver";
 
 import Keyboard from "./components/Keyboard"
 import DragBox from "./components/DragBox"
 import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
-import roboto from "./img/Pacifico.ttf"
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -23,14 +23,13 @@ const stageOptions = {
 
 const textStyle = new PIXI.TextStyle({
     align: "center",
-    // font: './assets/Pacifico.ttf',
-    font: roboto,
+    fontFamily: "Barlow Condensed",
     fontSize: 50, // [26]
     fontWeight: "bold",
     fill: "#fff",
     // fill: ["#26f7a3", "#01d27e"],
     // stroke: "#eef1f5",
-    // strokeThickness: 1,fontFamily
+    // strokeThickness: 1,
     // letterSpacing: 5,
     // wordWrap: false,
     // wordWrapWidth: 350
@@ -69,6 +68,14 @@ function App() {
 
   const [winWidth, winHeight] = useWindowSize()
 
+    const [isFontAvailable, setIsFontAvailable] = useState(false)
+    useEffect(() => {
+        const font = new FontFaceObserver("Barlow Condensed");
+        font.load(null, 5000)
+            .then(() => setIsFontAvailable(true))
+            .catch(() => console.warn('One or more fonts failed to load'))
+    }, [setIsFontAvailable])
+
   return (
       (winWidth && winHeight) &&
       <Stage
@@ -96,7 +103,7 @@ function App() {
 
         <Container x={8} y={8}>
           {/*<Text text="Hello World" filter={[blurFilter]} />*/}
-          <Text text="Hello PIXI" style={textStyle} />
+          {isFontAvailable && <Text text="Hello PIXI" style={textStyle}/>}
         </Container>
 
         <Graphics draw={draw}/>
