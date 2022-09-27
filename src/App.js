@@ -9,6 +9,7 @@ import DragBox from "./components/DragBox"
 import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
+import Lenna from "./img/Lenna.png"
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -91,7 +92,7 @@ function App() {
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
           <Sprite
-              image={green_tile} x={200} y={200}
+              image={Lenna} x={200} y={200}
               interactive
               buttonMode
               click={e => {
