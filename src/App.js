@@ -83,7 +83,7 @@ function App() {
           width={winWidth} height={winHeight}
           options={stageOptions}
           onClick={e => {
-              console.log('click:', e.clientX, e.clientY)
+              console.log('Stage:', e.clientX, e.clientY)
           }}
       >
         <Keyboard />
@@ -92,7 +92,7 @@ function App() {
 
         <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
           <Sprite
-              image={Lenna} x={200} y={200}
+              image={Lenna} x={winWidth-220-8} y={8}
               interactive
               buttonMode
               click={e => {
