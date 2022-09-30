@@ -1,15 +1,17 @@
 import './App.css'
-import { useEffect, useState } from "react"
 import * as PIXI from 'pixi.js'
+import {createContext, useContext, useEffect, useState} from "react"
 import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
-import FontFaceObserver from "fontfaceobserver";
+import FontFaceObserver from "fontfaceobserver"
 
+import AppProvider from './AppProvider.js'
 import Keyboard from "./components/Keyboard"
 import DragBox from "./components/DragBox"
 import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 import Lenna from "./img/Lenna.png"
+import StyledText from "./components/StyledText";
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -67,52 +69,59 @@ const Ninja = () => {
 
 function App() {
 
+  // const {isFontAvailable} = useContext(AppContext)
   const [winWidth, winHeight] = useWindowSize()
 
-    const [isFontAvailable, setIsFontAvailable] = useState(false)
-    useEffect(() => {
-        const font = new FontFaceObserver("Barlow Condensed");
-        font.load(null, 5000)
-            .then(() => setIsFontAvailable(true))
-            .catch(() => console.warn('One or more fonts failed to load'))
-    }, [setIsFontAvailable])
+  const [state, setState] = useState(false)
+
+  useEffect(() => {
+    const font = new FontFaceObserver("Barlow Condensed");
+    font.load(null, 5000)
+      .then(() => {setState(true)})
+      .catch(() => console.warn('One or more fonts failed to load'))
+  }, [])
 
   return (
-      (winWidth && winHeight) &&
-      <Stage
-          width={winWidth} height={winHeight}
-          options={stageOptions}
-          onClick={e => {
-              console.log('Stage:', e.clientX, e.clientY)
-          }}
-      >
-        <Keyboard />
-        <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
-        <DragBox x={winWidth/2} y={winHeight/2} width={32} height={32} />
-
-        <Filters matrix={{ enabled: true }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
-          <Sprite
-              image={Lenna} x={winWidth-220-8} y={8}
-              interactive
-              buttonMode
-              click={e => {
-                  const pos = e.data.global
-                  console.log('click:', pos.x, pos.y)
+      (winWidth && winHeight) && <Stage
+              width={winWidth} height={winHeight}
+              options={stageOptions}
+              onClick={e => {
+                  console.log('Stage:', e.clientX, e.clientY)
               }}
-          />
-        </Filters>
+          >
+          <AppProvider state={state}>
+            <Keyboard />
+            <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
+            <DragBox x={winWidth/2} y={winHeight/2} width={32} height={32} />
 
-        <Container x={8} y={8}>
-          {/*<Text text="Hello World" filter={[blurFilter]} />*/}
-          {isFontAvailable && <Text text="Hello PIXI" style={textStyle}/>}
-        </Container>
+              {/*<Filters matrix={{ enabled: false }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
+              <Sprite
+                  image={Lenna} x={winWidth-220-8} y={8}
+                  interactive
+                  buttonMode
+                  click={e => {
+                      const pos = e.data.global
+                      console.log('click:', pos.x, pos.y)
+                  }}
+              />
+            </Filters>*/}
 
-        <Graphics draw={draw}/>
+            <Container x={8} y={8}>
+              {/*<Text text="Hello World" filter={[blurFilter]} />*/}
+              {/*{state.isFontAvailable && <Text text="Hello PIXI" style={textStyle}/>}*/}
+              <StyledText text="Hello PIXI" x={64} y={64} />
+            </Container>
 
-        <Ninja />
+            {/*{isFontAvailable && <Text text="Ohayou sekai!" style={textStyle} x={64} y={64}/>}*/}
+            <StyledText text={"state:" + state} x={64} y={128} />
+
+            <Graphics draw={draw} cacheAsBitmap={true} />
+
+            {/*<Ninja />*/}
+          </AppProvider>
 
       </Stage>
-  );
+  )
 }
 
 export default App
