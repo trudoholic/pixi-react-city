@@ -83,18 +83,18 @@ function App() {
 
   return (
       (winWidth && winHeight) && <Stage
-              width={winWidth} height={winHeight}
-              options={stageOptions}
-              onClick={e => {
-                  console.log('Stage:', e.clientX, e.clientY)
-              }}
-          >
+          width={winWidth} height={winHeight}
+          options={stageOptions}
+          onClick={e => {
+              console.log('Stage:', e.clientX, e.clientY)
+          }}
+      >
           <AppProvider state={state}>
             <Keyboard />
             <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
             <DragBox x={winWidth/2} y={winHeight/2} width={32} height={32} />
 
-              {/*<Filters matrix={{ enabled: false }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
+              <Filters matrix={{ enabled: false }} apply={ ({ matrix }) => matrix.greyscale(0.5, false) }>
               <Sprite
                   image={Lenna} x={winWidth-220-8} y={8}
                   interactive
@@ -104,7 +104,7 @@ function App() {
                       console.log('click:', pos.x, pos.y)
                   }}
               />
-            </Filters>*/}
+            </Filters>
 
             <Container x={8} y={8}>
               {/*<Text text="Hello World" filter={[blurFilter]} />*/}
@@ -116,6 +116,28 @@ function App() {
             <StyledText text={"state:" + state} x={64} y={128} />
 
             <Graphics draw={draw} cacheAsBitmap={true} />
+
+            {/*[...Array(4 * 3)].forEach((it, i) => {
+              //
+              console.log(i)
+                return i
+            })*/}
+
+              <Container x={64} y={64} name={'rooms'}>
+                {[...Array(4 * 3)].map((it, i) => (
+                    <Sprite key={'_' + i} x={32 * i} y={32 * i} width={32} height={32} name={'_' + i}
+                            texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
+                            tint={0xff5722}
+                            anchor={0.5}
+                            interactive buttonMode
+                            click={e => {
+                                // const pos = e.data.global
+                                // console.log('click:', pos.x, pos.y)
+                                console.log('click:', e.target.name, e.currentTarget.name)
+                            }}
+                    />
+                ))}
+              </Container>
 
             {/*<Ninja />*/}
           </AppProvider>
