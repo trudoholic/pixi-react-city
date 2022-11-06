@@ -12,6 +12,7 @@ import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 import Lenna from "./img/Lenna.png"
 import StyledText from "./components/StyledText";
+import RoomLayer from "./components/RoomLayer";
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -85,9 +86,9 @@ function App() {
       (winWidth && winHeight) && <Stage
           width={winWidth} height={winHeight}
           options={stageOptions}
-          onClick={e => {
-              console.log('Stage:', e.clientX, e.clientY)
-          }}
+          // onClick={e => {
+          //     console.log('Stage:', e.clientX, e.clientY)
+          // }}
       >
           <AppProvider state={state}>
             <Keyboard />
@@ -117,28 +118,7 @@ function App() {
 
             <Graphics draw={draw} cacheAsBitmap={true} />
 
-            {/*[...Array(4 * 3)].forEach((it, i) => {
-              //
-              console.log(i)
-                return i
-            })*/}
-
-              <Container x={64} y={64} name={'rooms'}>
-                {[...Array(4 * 3)].map((it, i) => (
-                    <Sprite key={'_' + i} x={32 * i} y={32 * i} width={32} height={32} name={'_' + i}
-                            texture={PIXI.Texture.WHITE} // PIXI.Texture.WHITE size is 10x10
-                            tint={0xff5722}
-                            anchor={0.5}
-                            interactive buttonMode
-                            click={e => {
-                                // const pos = e.data.global
-                                // console.log('click:', pos.x, pos.y)
-                                console.log('click:', e.target.name, e.currentTarget.name)
-                            }}
-                    />
-                ))}
-              </Container>
-
+            <RoomLayer />
             {/*<Ninja />*/}
           </AppProvider>
 
