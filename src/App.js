@@ -11,8 +11,10 @@ import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 import Lenna from "./img/Lenna.png"
-import StyledText from "./components/StyledText";
-import RoomLayer from "./components/RoomLayer";
+import StyledText from "./components/StyledText"
+import RoomLayer from "./components/RoomLayer"
+
+import { StateContextProvider } from "./components/GameState"
 
 const resolution = Math.min(window.devicePixelRatio, 2)
 
@@ -91,6 +93,7 @@ function App() {
           // }}
       >
           <AppProvider state={state}>
+          <StateContextProvider>
             <Keyboard />
             <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
             <DragBox x={winWidth/2} y={winHeight/2} width={32} height={32} />
@@ -120,6 +123,7 @@ function App() {
 
             <RoomLayer />
             {/*<Ninja />*/}
+          </StateContextProvider>
           </AppProvider>
 
       </Stage>

@@ -3,6 +3,8 @@ import * as PIXI from "pixi.js"
 // import {Container, Sprite} from "@inlet/react-pixi/animated"
 import {Container, Sprite} from '@inlet/react-pixi'
 
+import { useStateContext, useStateDispatchContext } from "./GameState"
+
 const ROOM_W = 320, ROOM_H = 24, GAP = 1
 
 const prepareRooms = (rows, cols) => {
@@ -23,6 +25,9 @@ const prepareRooms = (rows, cols) => {
 
 const RoomLayer = props => {
 
+    const state = useStateContext()
+    const dispatch = useStateDispatchContext()
+
     const [rooms, setRooms] = useState(() => prepareRooms(3, 4))
     const [selName, setSelName] = useState('')
 
@@ -31,6 +36,13 @@ const RoomLayer = props => {
             x={0} y={0} interactive
             click={e => {
                 console.log('RoomLayer:', e.target.name, e.currentTarget.name)
+
+                console.log('state:', state.length)
+                dispatch({
+                    type: 'ADD',
+                    payload: 42
+                })
+
                 // if (selName === e.target.name) return
 
                 const nextName = selName === e.target.name ? '' : e.target.name
