@@ -75,24 +75,24 @@ function App() {
   // const {isFontAvailable} = useContext(AppContext)
   const [winWidth, winHeight] = useWindowSize()
 
-  const [state, setState] = useState(false)
+  const [fontLoad, setFontLoad] = useState(false)
 
   useEffect(() => {
     const font = new FontFaceObserver("Barlow Condensed");
     font.load(null, 5000)
-      .then(() => {setState(true)})
+      .then(() => {setFontLoad(true)})
       .catch(() => console.warn('One or more fonts failed to load'))
   }, [])
 
   return (
-      (winWidth && winHeight) && <Stage
+      (winWidth && winHeight) ? <Stage
           width={winWidth} height={winHeight}
           options={stageOptions}
           // onClick={e => {
           //     console.log('Stage:', e.clientX, e.clientY)
           // }}
       >
-          <AppProvider state={state}>
+          <AppProvider fontLoad={fontLoad}>
           <StateContextProvider>
             <Keyboard />
             <SpringBox x={winWidth/4} y={winHeight/4} width={32} height={32} />
@@ -117,7 +117,7 @@ function App() {
             </Container>
 
             {/*{isFontAvailable && <Text text="Ohayou sekai!" style={textStyle} x={64} y={64}/>}*/}
-            <StyledText text={"state:" + state} x={64} y={128} />
+            <StyledText text={"state:" + fontLoad} x={64} y={128} />
 
             <Graphics draw={draw} cacheAsBitmap={true} />
 
@@ -126,7 +126,7 @@ function App() {
           </StateContextProvider>
           </AppProvider>
 
-      </Stage>
+      </Stage> : null
   )
 }
 

@@ -19,10 +19,10 @@ const textStyle = new PIXI.TextStyle({
 
 const StyledText = ({ text, x, y }) => {
 
-    const state = useContext(AppContext)
+    const fontLoad = useContext(AppContext)
 
     return (
-        state ? <Text text={text} style={textStyle} x={x} y={y} /> : <Text text={text} />//null
+        fontLoad ? <Text text={text} style={textStyle} x={x} y={y} /> : <Text text={text} />//null
     )
 }
 
