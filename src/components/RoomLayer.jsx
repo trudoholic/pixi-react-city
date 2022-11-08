@@ -4,8 +4,9 @@ import * as PIXI from "pixi.js"
 import {Container, Sprite} from '@inlet/react-pixi'
 
 import { useStateContext, useStateDispatchContext } from "./GameState"
+import StyledText from "./StyledText";
 
-const ROOM_W = 320, ROOM_H = 24, GAP = 1
+const ROOM_W = 320, ROOM_H = 240, GAP = 1
 
 const prepareRooms = (rows, cols) => {
     console.log('prepareRooms:', rows, cols)
@@ -15,8 +16,10 @@ const prepareRooms = (rows, cols) => {
             rooms.push({
                 name: 'room_' + rooms.length,
                 selected: false,
-                x: ROOM_W/2 + col * (ROOM_W + GAP),
-                y: ROOM_H/2 + row * (ROOM_H + GAP),
+                // x: ROOM_W/2 + col * (ROOM_W + GAP),
+                // y: ROOM_H/2 + row * (ROOM_H + GAP),
+                x: col * (ROOM_W + GAP),
+                y: row * (ROOM_H + GAP),
             })
         }
     }
@@ -56,13 +59,23 @@ const RoomLayer = props => {
             }}
         >
             {rooms.map(it => (
-                <Sprite key={it.name} name={it.name}
-                    anchor={0.5} x={it.x} y={it.y}
-                    alpha={it.selected? 1:.5} tint={0xff5722}
-                    texture={PIXI.Texture.WHITE}
-                    width={ROOM_W} height={ROOM_H}
-                    interactive buttonMode
-                />
+                // <Sprite key={it.name} name={it.name}
+                //     anchor={0.5} x={it.x} y={it.y}
+                //     alpha={it.selected? 1:.5} tint={0xff5722}
+                //     texture={PIXI.Texture.WHITE}
+                //     width={ROOM_W} height={ROOM_H}
+                //     interactive buttonMode
+                // />
+                <Container key={it.name} x={it.x} y={it.y}>
+                    <Sprite name={it.name}
+                        //anchor={0.5} //x={it.x} y={it.y}
+                        alpha={it.selected? 1:.5} tint={0xff5722}
+                        texture={PIXI.Texture.WHITE}
+                        width={ROOM_W} height={ROOM_H}
+                        interactive buttonMode
+                    />
+                    <StyledText text={it.name} x={8} y={8} />
+                </Container>
             ))}
         </Container>
     )

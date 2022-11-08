@@ -1,7 +1,7 @@
 import './App.css'
 import * as PIXI from 'pixi.js'
-import {createContext, useContext, useEffect, useState} from "react"
-import { Stage, Container, Graphics, Sprite, Text, useTick, withFilters } from '@inlet/react-pixi'
+import {useEffect, useState} from "react"
+import { Stage, Container, Graphics, Sprite, useTick, withFilters } from '@inlet/react-pixi'
 import FontFaceObserver from "fontfaceobserver"
 
 import AppProvider from './AppProvider.js'
@@ -11,7 +11,6 @@ import SpringBox from "./components/SpringBox"
 import { useWindowSize } from "./hooks/useWindowSize"
 import green_tile from "./img/green.png"
 import Lenna from "./img/Lenna.png"
-import StyledText from "./components/StyledText"
 import RoomLayer from "./components/RoomLayer"
 
 import { StateContextProvider } from "./components/GameState"
@@ -26,20 +25,6 @@ const stageOptions = {
     resolution: resolution || 1,
     antialias: resolution <= 1,
 }
-
-const textStyle = new PIXI.TextStyle({
-    align: "center",
-    fontFamily: "Barlow Condensed",
-    fontSize: 50, // [26]
-    fontWeight: "bold",
-    fill: "#fff",
-    // fill: ["#26f7a3", "#01d27e"],
-    // stroke: "#eef1f5",
-    // strokeThickness: 1,
-    // letterSpacing: 5,
-    // wordWrap: false,
-    // wordWrapWidth: 350
-})
 
 const draw = g => {
     g.beginFill(0x0033cc, 1)
@@ -71,8 +56,6 @@ const Ninja = () => {
 }
 
 function App() {
-
-  // const {isFontAvailable} = useContext(AppContext)
   const [winWidth, winHeight] = useWindowSize()
 
   const [fontLoad, setFontLoad] = useState(false)
@@ -109,15 +92,6 @@ function App() {
                   }}
               />
             </Filters>
-
-            <Container x={8} y={8}>
-              {/*<Text text="Hello World" filter={[blurFilter]} />*/}
-              {/*{state.isFontAvailable && <Text text="Hello PIXI" style={textStyle}/>}*/}
-              <StyledText text="Hello PIXI" x={64} y={64} />
-            </Container>
-
-            {/*{isFontAvailable && <Text text="Ohayou sekai!" style={textStyle} x={64} y={64}/>}*/}
-            <StyledText text={"state:" + fontLoad} x={64} y={128} />
 
             <Graphics draw={draw} cacheAsBitmap={true} />
 

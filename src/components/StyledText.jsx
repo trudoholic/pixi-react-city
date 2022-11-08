@@ -17,9 +17,11 @@ const textStyle = new PIXI.TextStyle({
     // wordWrapWidth: 350
 })
 
-const StyledText = ({ text, x, y }) => {
+const StyledText = ({ text, x, y, fontSize = 26 }) => {
 
     const fontLoad = useContext(AppContext)
+
+    textStyle.fontSize = fontSize
 
     return (
         fontLoad ? <Text text={text} style={textStyle} x={x} y={y} /> : <Text text={text} />//null
